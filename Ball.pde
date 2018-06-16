@@ -25,7 +25,9 @@ class Ball {
       psize = players.get(i).size;
       ppos.x = players.get(i).pos.x;
       ppos.y = players.get(i).pos.y;
+      players.get(i).gotBall = false;
       if (dist(pos.x, pos.y, ppos.x, ppos.y) < psize + 5) {
+        players.get(i).gotBall = true;
         pos.x = ppos.x - 1.2 * psize/2 * cos(players.get(i).dir);
         pos.y = ppos.y + 1.2 * psize/2 * sin(players.get(i).dir);
       }
@@ -36,6 +38,7 @@ class Ball {
     if (acc.y > 0) {
       acc.y -= 2;
     }
+    
     
     //if shot -> go in direction
     //if near player, stick to player (magnetism)
