@@ -16,8 +16,10 @@
    time = 0;
    noCursor();
    teamLeft = new ArrayList<Player>();
+   teamLeft.add(new Player(0));
    //fill team left
    teamRight = new ArrayList<Player>();
+   teamRight.add(new Player(1));
    //fill team right
    allPlayers = new ArrayList<Player>();
    allPlayers.addAll(teamLeft);
