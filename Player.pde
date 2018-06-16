@@ -34,20 +34,17 @@ class Player {
   
   //CONTROLS
   void update() {
-    int dirT = dir;
     if (team == 0) {
       if (leftLeft) {
         pos.x -= speed/20;
         dir = 270;
         if (leftUp) {
           pos.y -= speed/20;
-          dir += 45;
-          return;
+          dir = 315;
         }
         else if (leftDown) {
           pos.y += speed/20;
-          dir -= 45;
-          return;
+          dir = 225;
         }
       }
       else if (leftRight) {
@@ -55,20 +52,20 @@ class Player {
         dir = 90;
         if (leftUp) {
           pos.y -= speed/20;
-          dir -= 45;
-          return;
+          dir = 45;
         }
         else if (leftDown) {
           pos.y += speed/20;
-          dir += 45;
-          return;
+          dir = 135;
         }
       }
-      if (leftUp) {
+      else if (leftUp) {
         pos.y -= speed/20;
+        dir = 0;
       }
       else if (leftDown) {
         pos.y += speed/20;
+        dir = 180;
       }
     }
     else {
@@ -77,13 +74,11 @@ class Player {
         dir = 270;
         if (rightUp) {
           pos.y -= speed/20;
-          dir += 45;
-          return;
+          dir = 315;
         }
         else if (rightDown) {
           pos.y += speed/20;
-          dir -= 45;
-          return;
+          dir = 225;
         }
       }
       else if (rightRight) {
@@ -91,16 +86,14 @@ class Player {
         dir = 90;
         if (rightUp) {
           pos.y -= speed/20;
-          dir -= 45;
-          return;
+          dir = 45;
         }
         else if (rightDown) {
           pos.y += speed/20;
-          dir += 45;
-          return;
+          dir = 135;
         }
       }
-      if (rightUp) {
+      else if (rightUp) {
         pos.y -= speed/20;
         dir = 0;
       }
@@ -109,6 +102,7 @@ class Player {
         dir = 180;
       }
     }
+    println(dir);
     checkBoundaries();
   }
   /*
