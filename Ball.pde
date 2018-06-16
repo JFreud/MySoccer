@@ -28,9 +28,9 @@ class Ball {
       players.get(i).gotBall = false;
       if (dist(pos.x, pos.y, ppos.x, ppos.y) < psize + 5) {
         players.get(i).gotBall = true;
-        pos.x = ppos.x - 1.2 * psize/2 * cos(players.get(i).dir);
-        pos.y = ppos.y + 1.2 * psize/2 * sin(players.get(i).dir);
-      }
+        pos.x = ppos.x + (sin(players.get(i).dir) * psize/2 * 1.4);
+        pos.y = ppos.y - (cos(players.get(i).dir) * psize/2 * 1.4);
+      } 
     }
     if (acc.x > 0) {
       acc.x -= 2;
