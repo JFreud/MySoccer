@@ -43,9 +43,12 @@
  }
  
  void gameState() {
-   background(199);
+   background(0, 125, 0);
    fill(255, 0, 255);
-   
+   ball.display();
+   for (int i = 0; i < allPlayers.size(); i++) {
+     allPlayers.get(i).display();
+   }
  }
  
  

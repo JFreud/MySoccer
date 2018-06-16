@@ -11,7 +11,6 @@ class Player {
     else {
       pos = new PVector(width*3/4, height/2);
     }
-    
   }
   
   void display() {
@@ -26,9 +25,50 @@ class Player {
   }
   
   void update() {
-    
-    
+    if (team == 0) {
+      if (leftUp) {
+        pos.y -= 5;
+      }
+      else if (leftDown) {
+        pos.y += 5;
+      }
+      if (leftLeft) {
+        pos.x -= 5;
+      }
+      else if (leftRight) {
+        pos.x += 5;
+      }
+    }
+    else {
+      if (rightUp) {
+        pos.y -= 5;
+      }
+      else if (rightDown) {
+        pos.y += 5;
+      }
+      if (rightLeft) {
+        pos.x -= 5;
+      }
+      else if (rightRight) {
+        pos.x += 5;
+      }
+    }
+    checkBoundaries();
   }
   
+  void checkBoundaries() {
+    if (pos.x <= 0) {
+      pos.x = 0;
+    }
+    if (pos.x >= width) {
+      pos.x = width;
+    }
+    if (pos.y <= 0) {
+      pos.y = 0;
+    }
+    if (pos.y >= height) {
+      pos.y = height;
+    }
+  }  
   
 }
