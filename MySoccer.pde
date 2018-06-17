@@ -3,10 +3,12 @@
  ArrayList<Player> teamRight;
  ArrayList<Player> allPlayers;
  int scoreLeft, scoreRight;
+ int hasBall; //Which team has the ball, relates with player actions
  double time;
  
  boolean leftUp, leftDown, leftLeft, leftRight;
  boolean rightUp, rightDown, rightLeft, rightRight;
+ boolean rightAction, leftAction;
  
  void setup() {
    size(1000, 720);
@@ -15,11 +17,12 @@
    scoreRight = 0;
    time = 0;
    noCursor();
+   hasBall = 0;
    teamLeft = new ArrayList<Player>();
-   teamLeft.add(new Player(0));
+   teamLeft.add(new Player(0, 80, 80));
    //fill team left
    teamRight = new ArrayList<Player>();
-   teamRight.add(new Player(1));
+   teamRight.add(new Player(1, 80, 80));
    //fill team right
    allPlayers = new ArrayList<Player>();
    allPlayers.addAll(teamLeft);
