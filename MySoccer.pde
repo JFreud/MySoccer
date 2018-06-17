@@ -173,7 +173,7 @@ void keyPressed() {
     rightAction = true;
   }
   if (key == CODED) {
-    if (keyCode == TAB){
+    if (keyCode == CONTROL){
       leftAction = true;
     }
   }
@@ -211,7 +211,7 @@ void keyReleased() {
     rightAction = false;
   }
   if (key == CODED) {
-    if (keyCode == TAB){
+    if (keyCode == CONTROL){
       leftAction = false;
     }
   }
