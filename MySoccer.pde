@@ -37,6 +37,22 @@
    }
  }
  
+ void whoHasBall(){
+   for (int i = 0; i < teamLeft.size(); i++){
+     if (teamLeft.get(i).gotBall){
+       hasBall = 0;
+       return;  
+     }
+   }
+   for (int i = 0; i < teamRight.size(); i++){
+     if (teamRight.get(i).gotBall){
+       hasBall = 1;
+       return;  
+     }
+   }
+ }
+ 
+ 
  void endGame() {
    background(0);
    textSize(40);

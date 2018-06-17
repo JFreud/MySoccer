@@ -4,6 +4,7 @@ class Player {
   int team, size; 
   int speed, power; //Stats
   boolean gotBall;
+  boolean tackling, kicking, down;
   
   Player(int team, int s, int p) {
     size = 30;
@@ -11,6 +12,9 @@ class Player {
     speed = s;
     power = s;
     gotBall = false;
+    tackling = false;
+    kicking = false;
+    down = false;
     if (team == 0) {
       pos = new PVector(width/4, height/2);
       dir = 90;
@@ -106,26 +110,26 @@ class Player {
     println(dir);
     checkBoundaries();
   }
-  /*
+  
   void action() {
     if (team == 0){
-      if (hasBall == 0 && gotBall){ //Shoot/Pass
-        
+      if (hasBall == 0 && gotBall){ //Shoot/Pass        
+        kicking = true;
       }
       else if (hasBall == 1){ //Tackle
-      
+        tackling = true;      
       }
     }
     else {
-      if (hasBall == 1 && gotBall){ //Shoot/Pass
-        
+      if (hasBall == 1 && gotBall){ //Shoot/Pass        
+        kicking = true;
       }
       else if (hasBall == 0){ //Tackle
-      
+        tackling = true;
       }
     }
   }
-  */
+  
   void checkBoundaries() {
     if (pos.x <= size/2) {
       pos.x = size/2;
