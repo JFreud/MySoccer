@@ -102,8 +102,10 @@ void keyPressed() {
   if (key == ',') {
     rightAction = true;
   }
-  if (key == 'q') {
-    leftAction = true;
+  if (key == CODED) {
+    if (keyCode == CONTROL){
+      leftAction = true;
+    }
   }
 }
 
@@ -138,7 +140,9 @@ void keyReleased() {
   if (key == ',') {
     rightAction = false;
   }
-  if (key == 'q') {
-    leftAction = false;
+  if (key == CODED) {
+    if (keyCode == CONTROL){
+      leftAction = false;
+    }
   }
 }
