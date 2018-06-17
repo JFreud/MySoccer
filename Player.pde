@@ -4,10 +4,7 @@ class Player {
   int team, size; 
   int speed, power; //Stats
   boolean gotBall;
-  boolean kicking;
-  double shot_power;
-  double shot_incr, speedTmp;
-  double sprintSpeed, cooldown;
+  double kickStrength, kickTimer;
   
   Player(int team, int s, int p) {
     size = 30;
@@ -15,9 +12,8 @@ class Player {
     speed = s;
     power = p;
     gotBall = false;
-    kicking = false;
-    speedTmp = 0;
-    shot_incr = power * 0.0000001;
+    kickStrength = 0;
+    kickTimer = 0;
     if (team == 0) {
       pos = new PVector(width/4, height/2);
       dir = 90;
@@ -39,144 +35,117 @@ class Player {
     update();
   }
   
-  //CONTROLS
   void update() {
-    if (hasBall != team) {
-      kicking = false;
+    move();
+    if (team == 0 && leftAction){
+        action();  
+    } 
+    if (team == 1 && rightAction){
+      action();
     }
-    else if (gotBall) {
-      kicking = true;
-    }
-    else {
-      kicking = false;
-    }
+  }
+  
+  void move() {
     if (team == 0) {
       if (leftLeft) {
-        pos.x -= speed/20 + sprintSpeed;
+        pos.x -= speed/20;
         dir = PI*3/2;
         if (leftUp) {
-          pos.y -= speed/20 + sprintSpeed;
+          pos.y -= speed/20;
           dir = PI*7/4;
         }
         else if (leftDown) {
-          pos.y += speed/20 + sprintSpeed;
+          pos.y += speed/20;
           dir = PI*5/4;
         }
       }
       else if (leftRight) {
-        pos.x += speed/20 + sprintSpeed;
+        pos.x += speed/20;
         dir = PI/2;
         if (leftUp) {
-          pos.y -= speed/20 + sprintSpeed;
+          pos.y -= speed/20;
           dir = PI/4;
         }
         else if (leftDown) {
-          pos.y += speed/20 + sprintSpeed;
+          pos.y += speed/20;
           dir = PI*3/4;
         }
       }
       else if (leftUp) {
-        pos.y -= speed/20 + sprintSpeed;
+        pos.y -= speed/20;
         dir = 0;
       }
       else if (leftDown) {
-        pos.y += speed/20 + sprintSpeed;
+        pos.y += speed/20;
         dir = PI;
       }
     }
     
     else {
       if (rightLeft) {
-        pos.x -= speed/20 + sprintSpeed;
+        pos.x -= speed/20;
         dir = PI*3/2;
         if (rightUp) {
-          pos.y -= speed/20 + sprintSpeed;
+          pos.y -= speed/20;
           dir = PI*7/4;
         }
         else if (rightDown) {
-          pos.y += speed/20 + sprintSpeed;
+          pos.y += speed/20;
           dir = PI*5/4;
         }
       }
       else if (rightRight) {
-        pos.x += speed/20 + sprintSpeed;
+        pos.x += speed/20;
         dir = PI/2;
         if (rightUp) {
-          pos.y -= speed/20 + sprintSpeed;
+          pos.y -= speed/20;
           dir = PI/4;
         }
         else if (rightDown) {
-          pos.y += speed/20 + sprintSpeed;
+          pos.y += speed/20;
           dir = PI*3/4;
         }
       }
       else if (rightUp) {
-        pos.y -= speed/20 + sprintSpeed;
+        pos.y -= speed/20;
         dir = 0;
       }
       else if (rightDown) {
-        pos.y += speed/20 + sprintSpeed;
+        pos.y += speed/20;
         dir = PI;
       }
     }
-    if (gotBall) {
-      action();
-    }
-    else if (hasBall != team && cooldown == 0){
-      sprint();
-    }
-    if (sprintSpeed > 0){
-      if (cooldown > 0){
-        cooldown -= .01;
-      }
-      sprintSpeed -= .05;
-      println(cooldown);
-      println(sprintSpeed);
-    }
-    checkBoundaries();
   }
   
-  void action() {
-    if (shot_incr == 0) {
-      shot_power = 20;
-      speedTmp = 0;
+  //ACTION
+  void action(){
+    if (gotBall){
+      kick();  
     }
-    shot_incr = power * 0.005;
-    if (team == 0 && leftAction) {
-      shot_power += shot_incr;
-      if (shot_power >= power/2){
-        leftAction = false;
-        shot_incr = 0;
-      }
-      speedTmp += .001;
-    }
-    else if (team == 1 && rightAction) {
-      shot_power += shot_incr;
-      if (shot_power >= power/2){
-        rightAction = false;
-        shot_incr = 0;
-      }
-      speedTmp += .001;
-    }
-    if (team == 0 && !leftAction) {
-      shot_incr = 0;
-    }
-    if (team == 1 && !rightAction) {
-      shot_incr = 0;
+    else if (hasBall != team){
+      sprint();  
     }
   }
   
-  void sprint() {
-    if (team == 0 && leftAction){
-      cooldown = 1;
-      sprintSpeed = speed/5;
+  void sprint(){
+      
+  }
+  void kick(){
+    println(kickTimer);
+    if (kickTimer == 0 && kickStrength == 0){ //Initial
+      kickTimer = 100;
     }
-    else if (team == 1 && rightAction){
-      cooldown = 1;
-      sprintSpeed = speed/5;
+    else if (kickTimer > 0){ //Charging
+      if (kickStrength >= power/2)
+        kickStrength = power/2;
+      else kickStrength += power/10;
+      kickTimer -= 1;
+      println("kickStrength: " + kickStrength);
+      println("kickTimer: " + kickTimer);
     }
   }
   
+  //Collision
   void checkBoundaries() {
     if (pos.x <= size/2) {
       pos.x = size/2;
