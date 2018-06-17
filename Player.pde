@@ -391,8 +391,8 @@ class Player {
       kickTimer = 100;
     }
     else if (kickTimer > 0){ //Charging
-      if (kickStrength >= power/2)
-        kickStrength = power/2;
+      if (kickStrength >= power)
+        kickStrength = power;
       else kickStrength += power/10;
       kickTimer -= 1;
       println("kickStrength: " + kickStrength);
