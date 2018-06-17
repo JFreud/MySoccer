@@ -85,5 +85,13 @@ class Ball {
     }
   }  
   
-  
+  int inGoal(){
+    if (pos.x == 0 && pos.y >= height/2-240 && pos.y <= height/2+80){
+      return 1;
+    }
+    else if (pos.x == width && pos.y >= height/2-240 && pos.y <= height/2+80){
+      return 0;
+    }
+    return -1;
+  }
 }

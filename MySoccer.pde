@@ -30,6 +30,10 @@
    allPlayers.addAll(teamRight);
    ball = new Ball(allPlayers);
  }
+
+ void resetPlayerPositions(){
+     //Add when we have AI
+ }
  
  void drawfield() {
    //score
@@ -51,10 +55,10 @@
    //goalie boxes
    arc(165, height/2, 150, 150, PI*3/2, PI*5/2);
    rect(0, height/2 - 200, 165, 400);
-   rect(0, height/2 - 80, 55, 160);
+   rect(0, height/2 - 80, 55, 160); //Left Goal Box
    arc(width-165, height/2, 150, 150, PI/2, PI*3/2);
    rect(width - 165, height/2 - 200, 165, 400);
-   rect(width - 55, height/2 - 80, 55, 160);
+   rect(width - 55, height/2 - 80, 55, 160); //Right Goal Box
    strokeWeight(1);
    stroke(0);
  }
@@ -97,8 +101,17 @@
    for (int i = 0; i < allPlayers.size(); i++) {
      allPlayers.get(i).display();
    }
+   if (ball.inGoal() == 1){
+     scoreRight++;      
+     delay(1000);
+     resetPlayerPositions();
+   }
+   else if (ball.inGoal() == 0){
+     scoreLeft++;
+     delay(1000);
+     resetPlayerPositions();
+   }
  }
- 
  
 void keyPressed() {
   //left player
