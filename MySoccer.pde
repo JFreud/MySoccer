@@ -4,7 +4,9 @@
  ArrayList<Player> allPlayers;
  int scoreLeft, scoreRight;
  int hasBall; //Which team has the ball, relates with player actions
- double time;
+ int time;
+ int timeStart;
+ int duration;
  
  boolean leftUp, leftDown, leftLeft, leftRight;
  boolean rightUp, rightDown, rightLeft, rightRight;
@@ -16,7 +18,9 @@
    scoreLeft = 0;
    scoreRight = 0;
    drawfield();
-   time = 0;
+   time = 180;
+   timeStart = millis();
+   duration = 180;
    noCursor();
    hasBall = 0;
    teamLeft = new ArrayList<Player>();
@@ -72,13 +76,17 @@
    arc(width-165, height/2, 150, 150, PI/2, PI*3/2);
    rect(width - 165, height/2 - 200, 165, 400);
    rect(width - 55, height/2 - 80, 55, 160); //Right Goal Box
-   strokeWeight(1);
+   strokeWeight(4);
    stroke(0);
+   //time on top
+   fill(0);
+   text(time, width/2 - 20, 30);
+   strokeWeight(1);
  }
  
  void draw() {
    gameState();
-   if (time >= 90) {
+   if (time <= 0) {
      endGame();
    }
  }
@@ -103,12 +111,14 @@
    background(0);
    textSize(40);
    text("Game Ended", width/2 - 100, height/2);
-   text("Score: " + scoreLeft, width/2 - 90, height/2 + 30);
+   text("Score: \n" + scoreLeft + " - " + scoreRight, width/2 - 90, height/2 + 30);
    noLoop();
  }
  
+ 
  void gameState() {
    background(0, 125, 0);
+   time = duration - (millis() - timeStart)/1000;
    drawfield();
    ball.display();
    for (int i = 0; i < allPlayers.size(); i++) {
