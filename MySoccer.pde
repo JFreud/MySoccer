@@ -24,10 +24,10 @@
    noCursor();
    hasBall = 0;
    teamLeft = new ArrayList<Player>();
-   teamLeft.add(new Player(0, 80, 80));
+   teamLeft.add(new Player(0, 80, 80, 80));
    //fill team left
    teamRight = new ArrayList<Player>();
-   teamRight.add(new Player(1, 80, 80));
+   teamRight.add(new Player(1, 80, 80, 80));
    //fill team right
    allPlayers = new ArrayList<Player>();
    allPlayers.addAll(teamLeft);
@@ -119,6 +119,7 @@
  void gameState() {
    background(0, 125, 0);
    time = duration - (millis() - timeStart)/1000;
+   whoHasBall();
    drawfield();
    ball.display();
    for (int i = 0; i < allPlayers.size(); i++) {
@@ -172,7 +173,7 @@ void keyPressed() {
     rightAction = true;
   }
   if (key == CODED) {
-    if (keyCode == CONTROL){
+    if (keyCode == TAB){
       leftAction = true;
     }
   }
@@ -210,7 +211,7 @@ void keyReleased() {
     rightAction = false;
   }
   if (key == CODED) {
-    if (keyCode == CONTROL){
+    if (keyCode == TAB){
       leftAction = false;
     }
   }

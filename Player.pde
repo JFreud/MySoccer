@@ -2,15 +2,17 @@ class Player {
   PVector pos;
   float dir;
   int team, size; 
-  int speed, power; //Stats
+  int speed, power, endurance; //Stats
   boolean gotBall;
-  double kickStrength, kickTimer;
+  double kickStrength, kickTimer; //Kicking
+  double sprintSpeed, sprintTimer, runD; //Sprinting
   
-  Player(int team, int s, int p) {
+  Player(int team, int s, int p, int e) {
     size = 30;
     this.team = team;
     speed = s;
     power = p;
+    endurance = e;
     gotBall = false;
     kickStrength = 0;
     kickTimer = 0;
@@ -43,75 +45,76 @@ class Player {
     if (team == 1 && rightAction){
       action();
     }
+    checkBoundaries();
   }
   
   void move() {
     if (team == 0) {
       if (leftLeft) {
-        pos.x -= speed/20;
+        pos.x -= speed/20 + sprintSpeed;
         dir = PI*3/2;
         if (leftUp) {
-          pos.y -= speed/20;
+          pos.y -= speed/20 + sprintSpeed;
           dir = PI*7/4;
         }
         else if (leftDown) {
-          pos.y += speed/20;
+          pos.y += speed/20 + sprintSpeed;
           dir = PI*5/4;
         }
       }
       else if (leftRight) {
-        pos.x += speed/20;
+        pos.x += speed/20 + sprintSpeed;
         dir = PI/2;
         if (leftUp) {
-          pos.y -= speed/20;
+          pos.y -= speed/20 + sprintSpeed;
           dir = PI/4;
         }
         else if (leftDown) {
-          pos.y += speed/20;
+          pos.y += speed/20 + sprintSpeed;
           dir = PI*3/4;
         }
       }
       else if (leftUp) {
-        pos.y -= speed/20;
+        pos.y -= speed/20 + sprintSpeed;
         dir = 0;
       }
       else if (leftDown) {
-        pos.y += speed/20;
+        pos.y += speed/20 + sprintSpeed;
         dir = PI;
       }
     }
     
     else {
       if (rightLeft) {
-        pos.x -= speed/20;
+        pos.x -= speed/20 + sprintSpeed;
         dir = PI*3/2;
         if (rightUp) {
-          pos.y -= speed/20;
+          pos.y -= speed/20 + sprintSpeed;
           dir = PI*7/4;
         }
         else if (rightDown) {
-          pos.y += speed/20;
+          pos.y += speed/20 + sprintSpeed;
           dir = PI*5/4;
         }
       }
       else if (rightRight) {
-        pos.x += speed/20;
+        pos.x += speed/20 + sprintSpeed;
         dir = PI/2;
         if (rightUp) {
-          pos.y -= speed/20;
+          pos.y -= speed/20 + sprintSpeed;
           dir = PI/4;
         }
         else if (rightDown) {
-          pos.y += speed/20;
+          pos.y += speed/20 + sprintSpeed;
           dir = PI*3/4;
         }
       }
       else if (rightUp) {
-        pos.y -= speed/20;
+        pos.y -= speed/20 + sprintSpeed;
         dir = 0;
       }
       else if (rightDown) {
-        pos.y += speed/20;
+        pos.y += speed/20 + sprintSpeed;
         dir = PI;
       }
     }
@@ -128,7 +131,12 @@ class Player {
   }
   
   void sprint(){
-      
+    if (sprintTimer == 0){ //Initial
+      sprintTimer = 200-endurance;
+      sprintSpeed = speed/8;
+      runD = sprintSpeed/sprintTimer;
+//      println("Timer: " + sprintTimer + "\nSpeed: " + sprintSpeed + "\nrunD: " + runD);
+    }
   }
   void kick(){
     println(kickTimer);
@@ -147,16 +155,16 @@ class Player {
   
   //Collision
   void checkBoundaries() {
-    if (pos.x <= size/2) {
+    if (pos.x < size/2) {
       pos.x = size/2;
     }
-    if (pos.x >= width-size/2) {
+    if (pos.x > width-size/2) {
       pos.x = width-size/2;
     }
-    if (pos.y <= size/2) {
+    if (pos.y < size/2) {
       pos.y = size/2;
     }
-    if (pos.y >= height-size/2) {
+    if (pos.y > height-size/2) {
       pos.y = height-size/2;
     }
   }

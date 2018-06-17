@@ -46,6 +46,15 @@ class Ball {
         acc.y = -1 * cos(players.get(i).dir) * (float)players.get(i).kickStrength;
         players.get(i).kickStrength = 0;
       }
+      println("Timer: " + players.get(i).sprintTimer + "\nSpeed: " + players.get(i).sprintSpeed + "\nrunD: " + players.get(i).runD);
+      if (players.get(i).sprintSpeed > 0){ //Sprinting
+          players.get(i).sprintSpeed -= players.get(i).runD;
+      }
+      else if (players.get(i).sprintSpeed <= 0 && players.get(i).sprintTimer > 0){ //Reloading
+        players.get(i).sprintSpeed = 0;
+        players.get(i).sprintTimer--;  
+        println("reloading");
+      }
     }
     if (acc.x > 0 || acc.x < 0) {
       acc.x *= .9;
