@@ -6,8 +6,8 @@ class Player {
   boolean gotBall;
   boolean tackling, kicking, down, shot;
   double shot_power;
-  double shot_incr;
-  double speedTmp;
+  double shot_incr, speedTmp;
+  double tackleSpeed, cooldown;
   
   Player(int team, int s, int p) {
     size = 30;
@@ -57,75 +57,78 @@ class Player {
     }
     if (team == 0) {
       if (leftLeft) {
-        pos.x -= speed/20;
+        pos.x -= speed/20 + tackleSpeed;
         dir = PI*3/2;
         if (leftUp) {
-          pos.y -= speed/20;
+          pos.y -= speed/20 + tackleSpeed;
           dir = PI*7/4;
         }
         else if (leftDown) {
-          pos.y += speed/20;
+          pos.y += speed/20 + tackleSpeed;
           dir = PI*5/4;
         }
       }
       else if (leftRight) {
-        pos.x += speed/20;
+        pos.x += speed/20 + tackleSpeed;
         dir = PI/2;
         if (leftUp) {
-          pos.y -= speed/20;
+          pos.y -= speed/20 + tackleSpeed;
           dir = PI/4;
         }
         else if (leftDown) {
-          pos.y += speed/20;
+          pos.y += speed/20 + tackleSpeed;
           dir = PI*3/4;
         }
       }
       else if (leftUp) {
-        pos.y -= speed/20;
+        pos.y -= speed/20 + tackleSpeed;
         dir = 0;
       }
       else if (leftDown) {
-        pos.y += speed/20;
+        pos.y += speed/20 + tackleSpeed;
         dir = PI;
       }
     }
     
     else {
       if (rightLeft) {
-        pos.x -= speed/20;
+        pos.x -= speed/20 + tackleSpeed;
         dir = PI*3/2;
         if (rightUp) {
-          pos.y -= speed/20;
+          pos.y -= speed/20 + tackleSpeed;
           dir = PI*7/4;
         }
         else if (rightDown) {
-          pos.y += speed/20;
+          pos.y += speed/20 + tackleSpeed;
           dir = PI*5/4;
         }
       }
       else if (rightRight) {
-        pos.x += speed/20;
+        pos.x += speed/20 + tackleSpeed;
         dir = PI/2;
         if (rightUp) {
-          pos.y -= speed/20;
+          pos.y -= speed/20 + tackleSpeed;
           dir = PI/4;
         }
         else if (rightDown) {
-          pos.y += speed/20;
+          pos.y += speed/20 + tackleSpeed;
           dir = PI*3/4;
         }
       }
       else if (rightUp) {
-        pos.y -= speed/20;
+        pos.y -= speed/20 + tackleSpeed;
         dir = 0;
       }
       else if (rightDown) {
-        pos.y += speed/20;
+        pos.y += speed/20 + tackleSpeed;
         dir = PI;
       }
     }
     if (gotBall) {
       action();
+    }
+    else if (hasBall != team && cooldown > 0){
+      tackle();
     }
     checkBoundaries();
   }
@@ -158,6 +161,23 @@ class Player {
     if (team == 1 && !rightAction) {
       shot_incr = 0;
     }
+  }
+  
+  void tackle() {
+    if (team == 0 && leftAction){
+      leftAction = false;
+      cooldown = 1;
+      tackleSpeed = 3;
+    }
+    else if (team == 1 && rightAction){
+      rightAction = false;
+      cooldown = 1;
+      tackleSpeed = 3;
+    }
+  }
+  
+  void lowerTackle() {
+    
   }
   
   void checkBoundaries() {
