@@ -32,7 +32,20 @@
  }
 
  void resetPlayerPositions(){
-     //Add when we have AI
+     ball.pos.x = width/2;
+     ball.pos.y = height/2;
+     ball.acc.x = 0;
+     ball.acc.y = 0;
+     for(int i = 0; i < teamLeft.size(); i++) {
+       teamLeft.get(i).pos.x = width/4;
+       teamLeft.get(i).pos.y = height/2;
+       teamLeft.get(i).dir = 90;
+     }
+     for(int i = 0; i < teamRight.size(); i++) {
+       teamRight.get(i).pos.x = width*3/4;
+       teamRight.get(i).pos.y = height/2;
+       teamRight.get(i).dir = 270;
+     }
  }
  
  void drawfield() {
@@ -102,12 +115,16 @@
      allPlayers.get(i).display();
    }
    if (ball.inGoal() == 1){
-     scoreRight++;      
+     scoreRight++;
+     fill(255, 0, 0);
+     text("Blue Team has scored!", width/2 - 10, 20);
      delay(1000);
      resetPlayerPositions();
    }
    else if (ball.inGoal() == 0){
      scoreLeft++;
+     fill(0, 0, 255);
+     text("Red Team has scored!", width/2 - 10, 20);
      delay(1000);
      resetPlayerPositions();
    }
