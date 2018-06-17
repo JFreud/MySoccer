@@ -10,6 +10,9 @@
  boolean rightUp, rightDown, rightLeft, rightRight;
  boolean rightAction, leftAction;
  
+ boolean[] keys = new boolean[255];
+ boolean[] keyCodes = new boolean[255];
+ 
  void setup() {
    size(1000, 720);
    background(0);
@@ -70,75 +73,115 @@
    }
  }
  
+ //void updatePlayers() {
+ //  for (int i = 0; i < teamLeft.size(); i++) {
+     
+ //  }
+ //  for (int i = 0; i < teamRight.size(); i++) {
+     
+ //  }
+   
+   
+ //}
  
-void keyPressed() {
-  //left player
-  if (key == 'w') { leftUp = true; }
-  if (key == 'a') { leftLeft = true; }
-  if (key == 's') { leftDown = true; }
-  if (key == 'd') { leftRight = true; }
+ 
+//void keyPressed() {
+//  if (key == 'm') {
+//    //for (int i = 0; i < allPlayers.size(); i++) {
+//    //  if (allPlayers.get(i).gotBall) {
+//    //    println(allPlayers.get(i).dir);
+//    //  }
+//    //}
+//    rightAction = true;
+//  }
+//  if (key == 'q' || key == 'Q') {
+//    println("pressed key: " + key);
+//    for (int i = 0; i < allPlayers.size(); i++) {
+//      if (allPlayers.get(i).gotBall) {
+//        println(allPlayers.get(i).dir);
+//      }
+//    }
+//    leftAction = true;
+//  }
+//  //left player
+//  if (key == 'w') { leftUp = true; }
+//  if (key == 'a') { leftLeft = true; }
+//  if (key == 's') { leftDown = true; }
+//  if (key == 'd') { leftRight = true; }
   
-  //right player
-  if (key == CODED) { 
-    if (keyCode == UP) {
-      rightUp = true; 
-    }
+//  //right player
+//  if (key == CODED) { 
+//    if (keyCode == UP) {
+//      rightUp = true; 
+//    }
+//  }
+//  if (key == CODED) { 
+//    if (keyCode == DOWN) {
+//      rightDown = true; 
+//    }
+//  }
+//  if (key == CODED) { 
+//    if (keyCode == LEFT) {
+//      rightLeft = true; 
+//    }
+//  }
+//  if (key == CODED) { 
+//    if (keyCode == RIGHT) {
+//      rightRight = true; 
+//    }
+//  }
+//}
+
+//void keyReleased() {
+//  //left player
+//  if (key == 'w') { leftUp = false; }
+//  if (key == 'a') { leftLeft = false; }
+//  if (key == 's') { leftDown = false; }
+//  if (key == 'd') { leftRight = false; }
+  
+//  //right player
+//  if (key == CODED) { 
+//    if (keyCode == UP) {
+//      rightUp = false; 
+//    }
+//  }
+//  if (key == CODED) { 
+//    if (keyCode == DOWN) {
+//      rightDown = false; 
+//    }
+//  }
+//  if (key == CODED) { 
+//    if (keyCode == LEFT) {
+//      rightLeft = false; 
+//    }
+//  }
+//  if (key == CODED) { 
+//    if (keyCode == RIGHT) {
+//      rightRight = false; 
+//    }
+//  }
+//  if (key == 'm') {
+//    rightAction = false;
+//  }
+//  if (key == 'q' || key == 'Q') {
+//    leftAction = false;
+//  }
+//}
+
+void keyPressed() {
+  if (key == CODED) {
+    keyCodes[keyCode] = true;
   }
-  if (key == CODED) { 
-    if (keyCode == DOWN) {
-      rightDown = true; 
-    }
-  }
-  if (key == CODED) { 
-    if (keyCode == LEFT) {
-      rightLeft = true; 
-    }
-  }
-  if (key == CODED) { 
-    if (keyCode == RIGHT) {
-      rightRight = true; 
-    }
-  }
-  if (key == ',') {
-    rightAction = true;
-  }
-  if (key == 'q') {
-    leftAction = true;
+  else {
+    keys[key] = true;
   }
 }
 
 void keyReleased() {
-  //left player
-  if (key == 'w') { leftUp = false; }
-  if (key == 'a') { leftLeft = false; }
-  if (key == 's') { leftDown = false; }
-  if (key == 'd') { leftRight = false; }
-  
-  //right player
-  if (key == CODED) { 
-    if (keyCode == UP) {
-      rightUp = false; 
-    }
+  if (key == CODED) {
+    keyCodes[keyCode] = false;
   }
-  if (key == CODED) { 
-    if (keyCode == DOWN) {
-      rightDown = false; 
-    }
-  }
-  if (key == CODED) { 
-    if (keyCode == LEFT) {
-      rightLeft = false; 
-    }
-  }
-  if (key == CODED) { 
-    if (keyCode == RIGHT) {
-      rightRight = false; 
-    }
-  }
-  if (key == ',') {
-    rightAction = false;
-  }
-  if (key == 'q') {
-    leftAction = false;
+  else {
+    keys[key] = false;
   }
 }

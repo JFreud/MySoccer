@@ -1,5 +1,5 @@
 class Ball {
-  PVector pos, acc;
+  PVector pos, acc, dir;
   int size;
   boolean shot = false;
   ArrayList<Player> players;
@@ -9,6 +9,7 @@ class Ball {
     size = 10;
     pos = new PVector(width/2, height/2);
     acc = new PVector(0, 0);
+    dir = new PVector(0, 0);
     this.players = players;
   }
   
@@ -57,9 +58,6 @@ class Ball {
         println(acc.y);
       }
     }
-    //if shot -> go in direction
-    //if near player, stick to player (magnetism)
-    //if new player near player, take ball
     checkBoundaries();
   }
   

@@ -54,35 +54,37 @@ class Player {
       tackling = false;
     }
     if (team == 0) {
-      if (leftLeft) {
+      //println("KEY");
+      //println(keys['a']);
+      if (keys['a']) {
         pos.x -= speed/20;
         dir = PI*3/2;
-        if (leftUp) {
+        if (keys['w']) {
           pos.y -= speed/20;
           dir = PI*7/4;
         }
-        else if (leftDown) {
+        else if (keys['s']) {
           pos.y += speed/20;
           dir = PI*5/4;
         }
       }
-      else if (leftRight) {
+      else if (keys['d']) {
         pos.x += speed/20;
         dir = PI/2;
-        if (leftUp) {
+        if (keys['w']) {
           pos.y -= speed/20;
           dir = PI/4;
         }
-        else if (leftDown) {
+        else if (keys['s']) {
           pos.y += speed/20;
           dir = PI*3/4;
         }
       }
-      else if (leftUp) {
+      else if (keys['w']) {
         pos.y -= speed/20;
         dir = 0;
       }
-      else if (leftDown) {
+      else if (keys['s']) {
         pos.y += speed/20;
         dir = PI;
       }
@@ -123,12 +125,15 @@ class Player {
       }
     }
     if (gotBall) {
+      //println(dir);
       action();
     }
     checkBoundaries();
   }
   
   void action() {
+    //println("action clause start");
+    println(shot_incr);
     if (shot_incr == 0) {
       shot_power = 20;
     }
@@ -137,6 +142,7 @@ class Player {
       shot_power += shot_incr;
     }
     else if (team == 1 && rightAction) {
+      println("taking action");
       shot_power += shot_incr;
     }
     if (team == 0 && !leftAction) {
