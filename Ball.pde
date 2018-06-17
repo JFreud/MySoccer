@@ -2,7 +2,6 @@ class Ball {
   PVector pos, acc;
   PImage img;
   int size;
-  boolean shot = false;
   ArrayList<Player> players;
   
   
@@ -35,31 +34,35 @@ class Ball {
         players.get(i).gotBall = true;
         pos.x = ppos.x + (sin(players.get(i).dir) * psize/2 * 1.4);
         pos.y = ppos.y - (cos(players.get(i).dir) * psize/2 * 1.4);
-      } 
-    }
-    if (acc.x > 0) {
-      acc.x *= .9;
-    }
-    if (acc.x < 0) {
-      acc.x *= .9;
-    }
-    if (acc.y > 0) {
-      acc.y *= .9;
-    }
-    if (acc.y < 0) {
-      acc.y *= .9;
-    }
-    for (int i = 0; i < players.size(); i++) {
-      if (players.get(i).gotBall && players.get(i).shot_power > 20 && players.get(i).shot_incr == 0) {
-        println(players.get(i).shot_power);
-        acc.x = sin(players.get(i).dir) * (float)players.get(i).shot_power;
-        println("x");
-        println(acc.x);
-        acc.y = -1 * cos(players.get(i).dir) * (float)players.get(i).shot_power;
-        println("y");
-        println(acc.y);
+      }
+      
+      if (players.get(i).kickStrength > 0 && (players.get(i).kickTimer == 0 || (!leftAction && players.get(i).team == 0))){ //Checks if ending kicking action
+        acc.x = sin(players.get(i).dir) * (float)players.get(i).kickStrength;
+        acc.y = -1 * cos(players.get(i).dir) * (float)players.get(i).kickStrength;
+        players.get(i).kickStrength = 0;
+      }
+      if (players.get(i).kickStrength > 0 && (players.get(i).kickTimer == 0 || (!rightAction && players.get(i).team == 1))){ //Checks if ending kicking action
+        acc.x = sin(players.get(i).dir) * (float)players.get(i).kickStrength;
+        acc.y = -1 * cos(players.get(i).dir) * (float)players.get(i).kickStrength;
+        players.get(i).kickStrength = 0;
+      }
+      println("Timer: " + players.get(i).sprintTimer + "\nSpeed: " + players.get(i).sprintSpeed + "\nrunD: " + players.get(i).runD);
+      if (players.get(i).sprintSpeed > 0){ //Sprinting
+          players.get(i).sprintSpeed -= players.get(i).runD;
+      }
+      else if (players.get(i).sprintSpeed <= 0 && players.get(i).sprintTimer > 0){ //Reloading
+        players.get(i).sprintSpeed = 0;
+        players.get(i).sprintTimer--;  
+        println("reloading");
       }
     }
+    if (acc.x > 0 || acc.x < 0) {
+      acc.x *= .9;
+    }
+    if (acc.y > 0 || acc.y < 0) {
+      acc.y *= .9;
+    }
+    
     //if shot -> go in direction
     //if near player, stick to player (magnetism)
     //if new player near player, take ball
