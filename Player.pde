@@ -109,7 +109,6 @@ class Player {
         dir = 180;
       }
     }
-    if
     checkBoundaries();
   }
   /*
