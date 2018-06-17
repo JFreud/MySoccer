@@ -7,6 +7,11 @@
  int time;
  int timeStart;
  int duration;
+ int switcher;
+ PImage spritesLeft[];
+ PImage spritesRight[];
+ PImage spritesBall[];
+ 
  
  boolean leftUp, leftDown, leftLeft, leftRight;
  boolean rightUp, rightDown, rightLeft, rightRight;
@@ -15,6 +20,43 @@
  void setup() {
    size(1200, 700);
    background(0, 125, 0);
+   spritesLeft = new PImage[16];
+   spritesRight = new PImage[16];
+   spritesBall = new PImage[2];
+   spritesLeft[0] = loadImage("sprites/left/back1.png");
+   spritesLeft[1] = loadImage("sprites/left/back2.png");
+   spritesLeft[2] = loadImage("sprites/left/downleft1.png");
+   spritesLeft[3] = loadImage("sprites/left/downleft2.png");
+   spritesLeft[4] = loadImage("sprites/left/downright1.png");
+   spritesLeft[5] = loadImage("sprites/left/downright2.png");
+   spritesLeft[6] = loadImage("sprites/left/front1.png");
+   spritesLeft[7] = loadImage("sprites/left/front2.png");
+   spritesLeft[8] = loadImage("sprites/left/left1.png");
+   spritesLeft[9] = loadImage("sprites/left/left2.png");
+   spritesLeft[10] = loadImage("sprites/left/right1.png");
+   spritesLeft[11] = loadImage("sprites/left/right2.png");
+   spritesLeft[12] = loadImage("sprites/left/topleft1.png");
+   spritesLeft[13] = loadImage("sprites/left/topleft2.png");
+   spritesLeft[14] = loadImage("sprites/left/topright1.png");
+   spritesLeft[15] = loadImage("sprites/left/topright2.png");
+   spritesRight[0] = loadImage("sprites/right/back1.png");
+   spritesRight[1] = loadImage("sprites/right/back2.png");
+   spritesRight[2] = loadImage("sprites/right/downleft1.png");
+   spritesRight[3] = loadImage("sprites/right/downleft2.png");
+   spritesRight[4] = loadImage("sprites/right/downright1.png");
+   spritesRight[5] = loadImage("sprites/right/downright2.png");
+   spritesRight[6] = loadImage("sprites/right/front1.png");
+   spritesRight[7] = loadImage("sprites/right/front2.png");
+   spritesRight[8] = loadImage("sprites/right/left1.png");
+   spritesRight[9] = loadImage("sprites/right/left2.png");
+   spritesRight[10] = loadImage("sprites/right/right1.png");
+   spritesRight[11] = loadImage("sprites/right/right2.png");
+   spritesRight[12] = loadImage("sprites/right/topleft1.png");
+   spritesRight[13] = loadImage("sprites/right/topleft2.png");
+   spritesRight[14] = loadImage("sprites/right/topright1.png");
+   spritesRight[15] = loadImage("sprites/right/topright2.png");
+   spritesBall[0] = loadImage("ball1.png");
+   spritesBall[1] = loadImage("ball2.png");
    scoreLeft = 0;
    scoreRight = 0;
    drawfield();

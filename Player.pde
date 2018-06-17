@@ -6,11 +6,15 @@ class Player {
   boolean gotBall;
   double kickStrength, kickTimer; //Kicking
   double sprintSpeed, sprintTimer, runD; //Sprinting
+  int switcher;
+  int timer;
+  boolean hoo;
   
   Player(int team, int s, int p, int e) {
     size = 30;
     this.team = team;
     speed = s;
+    timer = 16;
     power = p;
     endurance = e;
     gotBall = false;
@@ -28,12 +32,15 @@ class Player {
   
   void display() {
     if (team == 0) {
+      image(spritesLeft[switcher], pos.x - 15, pos.y - 40, size * 2, size * 2);
       fill (255, 0, 0);
     }
     else {
+      image(spritesRight[switcher], pos.x - 15, pos.y - 40, size * 2, size * 2);
       fill (0, 0, 255);
     }
-    ellipse(pos.x, pos.y, size, size);
+    //ellipse(pos.x, pos.y, size, size);
+    
     update();
   }
   
@@ -53,11 +60,56 @@ class Player {
       if (leftLeft) {
         pos.x -= speed/20 + sprintSpeed;
         dir = PI*3/2;
+        if (hoo) {  
+            switcher = 8;
+            if (timer == 0) {
+              hoo = false;
+              timer = 16;
+            }
+            timer--;
+          }
+          else {
+            switcher = 9;
+            if (timer < 8) {
+              hoo = true;
+            }
+            timer--;
+          }
         if (leftUp) {
+          if (hoo) {  
+            switcher = 12;
+            if (timer == 0) {
+              hoo = false;
+              timer = 16;
+            }
+            timer--;
+          }
+          else {
+            switcher = 13;
+            if (timer < 8) {
+              hoo = true;
+            }
+            timer--;
+          }
           pos.y -= speed/20 + sprintSpeed;
           dir = PI*7/4;
         }
         else if (leftDown) {
+          if (hoo) {  
+            switcher = 2;
+            if (timer == 0) {
+              hoo = false;
+              timer = 16;
+            }
+            timer--;
+          }
+          else {
+            switcher = 3;
+            if (timer < 8) {
+              hoo = true;
+            }
+            timer--;
+          }
           pos.y += speed/20 + sprintSpeed;
           dir = PI*5/4;
         }
@@ -65,20 +117,95 @@ class Player {
       else if (leftRight) {
         pos.x += speed/20 + sprintSpeed;
         dir = PI/2;
+        if (hoo) {  
+            switcher = 10;
+            if (timer == 0) {
+              hoo = false;
+              timer = 16;
+            }
+            timer--;
+          }
+          else {
+            switcher = 11;
+            if (timer < 8) {
+              hoo = true;
+            }
+            timer--;
+          }
         if (leftUp) {
+          if (hoo) {  
+            switcher = 14;
+            if (timer == 0) {
+              hoo = false;
+              timer = 16;
+            }
+            timer--;
+          }
+          else {
+            switcher = 15;
+            if (timer < 8) {
+              hoo = true;
+            }
+            timer--;
+          }
           pos.y -= speed/20 + sprintSpeed;
           dir = PI/4;
         }
         else if (leftDown) {
+          if (hoo) {  
+            switcher = 4;
+            if (timer == 0) {
+              hoo = false;
+              timer = 16;
+            }
+            timer--;
+          }
+          else {
+            switcher = 5;
+            if (timer < 8) {
+              hoo = true;
+            }
+            timer--;
+          }
           pos.y += speed/20 + sprintSpeed;
           dir = PI*3/4;
         }
       }
       else if (leftUp) {
+        if (hoo) {  
+            switcher = 0;
+            if (timer == 0) {
+              hoo = false;
+              timer = 16;
+            }
+            timer--;
+          }
+          else {
+            switcher = 1;
+            if (timer < 8) {
+              hoo = true;
+            }
+            timer--;
+          }
         pos.y -= speed/20 + sprintSpeed;
         dir = 0;
       }
       else if (leftDown) {
+        if (hoo) {  
+            switcher = 6;
+            if (timer == 0) {
+              hoo = false;
+              timer = 16;
+            }
+            timer--;
+          }
+          else {
+            switcher = 7;
+            if (timer < 8) {
+              hoo = true;
+            }
+            timer--;
+          }
         pos.y += speed/20 + sprintSpeed;
         dir = PI;
       }
@@ -88,34 +215,154 @@ class Player {
       if (rightLeft) {
         pos.x -= speed/20 + sprintSpeed;
         dir = PI*3/2;
+        if (hoo) {  
+            switcher = 8;
+            if (timer == 0) {
+              hoo = false;
+              timer = 16;
+            }
+            timer--;
+          }
+          else {
+            switcher = 9;
+            if (timer < 8) {
+              hoo = true;
+            }
+            timer--;
+          }
         if (rightUp) {
           pos.y -= speed/20 + sprintSpeed;
           dir = PI*7/4;
+          if (hoo) {  
+            switcher = 12;
+            if (timer == 0) {
+              hoo = false;
+              timer = 16;
+            }
+            timer--;
+          }
+          else {
+            switcher = 13;
+            if (timer < 8) {
+              hoo = true;
+            }
+            timer--;
+          }
         }
         else if (rightDown) {
           pos.y += speed/20 + sprintSpeed;
           dir = PI*5/4;
+          if (hoo) {  
+            switcher = 2;
+            if (timer == 0) {
+              hoo = false;
+              timer = 16;
+            }
+            timer--;
+          }
+          else {
+            switcher = 3;
+            if (timer < 8) {
+              hoo = true;
+            }
+            timer--;
+          }
         }
       }
       else if (rightRight) {
         pos.x += speed/20 + sprintSpeed;
         dir = PI/2;
+        if (hoo) {  
+            switcher = 10;
+            if (timer == 0) {
+              hoo = false;
+              timer = 16;
+            }
+            timer--;
+          }
+          else {
+            switcher = 11;
+            if (timer < 8) {
+              hoo = true;
+            }
+            timer--;
+          }
         if (rightUp) {
           pos.y -= speed/20 + sprintSpeed;
           dir = PI/4;
+          if (hoo) {  
+            switcher = 14;
+            if (timer == 0) {
+              hoo = false;
+              timer = 16;
+            }
+            timer--;
+          }
+          else {
+            switcher = 15;
+            if (timer < 8) {
+              hoo = true;
+            }
+            timer--;
+          }
         }
         else if (rightDown) {
           pos.y += speed/20 + sprintSpeed;
           dir = PI*3/4;
+          if (hoo) {  
+            switcher = 4;
+            if (timer == 0) {
+              hoo = false;
+              timer = 16;
+            }
+            timer--;
+          }
+          else {
+            switcher = 5;
+            if (timer < 8) {
+              hoo = true;
+            }
+            timer--;
+          }
         }
       }
       else if (rightUp) {
         pos.y -= speed/20 + sprintSpeed;
         dir = 0;
+        if (hoo) {  
+            switcher = 0;
+            if (timer == 0) {
+              hoo = false;
+              timer = 16;
+            }
+            timer--;
+          }
+          else {
+            switcher = 1;
+            if (timer < 8) {
+              hoo = true;
+            }
+            timer--;
+          }
       }
       else if (rightDown) {
         pos.y += speed/20 + sprintSpeed;
         dir = PI;
+        if (hoo) {  
+            switcher = 6;
+            if (timer == 0) {
+              hoo = false;
+              timer = 16;
+            }
+            timer--;
+          }
+          else {
+            switcher = 7;
+            if (timer < 8) {
+              hoo = true;
+            }
+            timer--;
+          }
       }
     }
   }

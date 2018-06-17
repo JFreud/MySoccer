@@ -3,6 +3,7 @@ class Ball {
   PImage img;
   int size;
   ArrayList<Player> players;
+  int switcher;
   
   
   Ball(ArrayList<Player> players) {
@@ -10,12 +11,23 @@ class Ball {
     pos = new PVector(width/2, height/2);
     acc = new PVector(0, 0);
     this.players = players;
+    switcher = 0;
     img = loadImage("soccerball.png");
   }
   
   void display() {
     fill (255);
-    ellipse(pos.x, pos.y, size, size);
+    //ellipse(pos.x, pos.y, size, size);
+    if (switcher < 10) {
+      image(spritesBall[0], pos.x + 5, pos.y, size, size);
+      if (switcher == 0) {
+        switcher = 20;
+      }
+    }
+    else {
+      image(spritesBall[1], pos.x + 5, pos.y, size, size);
+      switcher--;
+    }
     //image(img, pos.x, pos.y, size * 3, size * 3);
     update();
   }
