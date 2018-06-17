@@ -6,6 +6,7 @@ class Player {
   boolean gotBall;
   boolean tackling, kicking, down, shot;
   double shot_power;
+  double shot_incr;
   
   Player(int team, int s, int p) {
     size = 30;
@@ -16,6 +17,7 @@ class Player {
     tackling = false;
     kicking = false;
     down = false;
+    shot_incr = power * 0.0000001;
     if (team == 0) {
       pos = new PVector(width/4, height/2);
       dir = 90;
@@ -120,22 +122,28 @@ class Player {
         dir = PI;
       }
     }
-    action();
+    if (gotBall) {
+      action();
+    }
     checkBoundaries();
   }
   
   void action() {
+    if (shot_incr == 0) {
+      shot_power = 20;
+    }
+    shot_incr = power * 0.005;
     if (team == 0 && leftAction) {
-      shot_power += power * 0.0000001;
+      shot_power += shot_incr;
     }
     else if (team == 1 && rightAction) {
-      shot_power += power * 0.0000001;
+      shot_power += shot_incr;
     }
     if (team == 0 && !leftAction) {
-      shot_power = 0;
+      shot_incr = 0;
     }
     if (team == 1 && !rightAction) {
-      shot_power = 0;
+      shot_incr = 0;
     }
   }
   

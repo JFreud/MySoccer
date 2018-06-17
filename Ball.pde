@@ -21,6 +21,8 @@ class Ball {
   void update() {
     int psize;
     PVector ppos = new PVector(0, 0);
+    pos.x += acc.x;
+    pos.y += acc.y;
     for (int i = 0; i < players.size(); i++) {
       psize = players.get(i).size;
       ppos.x = players.get(i).pos.x;
@@ -32,17 +34,27 @@ class Ball {
         pos.y = ppos.y - (cos(players.get(i).dir) * psize/2 * 1.4);
       } 
     }
-    pos.x += acc.x;
-    pos.y += acc.y;
     if (acc.x > 0) {
-      acc.x -= 2;
+      acc.x *= .9;
+    }
+    if (acc.x < 0) {
+      acc.x *= .9;
     }
     if (acc.y > 0) {
-      acc.y -= 2;
+      acc.y *= .9;
+    }
+    if (acc.y < 0) {
+      acc.y *= .9;
     }
     for (int i = 0; i < players.size(); i++) {
-      if (players.get(i).gotBall && shot_power) {
-        
+      if (players.get(i).gotBall && players.get(i).shot_power > 20 && players.get(i).shot_incr == 0) {
+        println(players.get(i).shot_power);
+        acc.x = sin(players.get(i).dir) * (float)players.get(i).shot_power;
+        println("x");
+        println(acc.x);
+        acc.y = -1 * cos(players.get(i).dir) * (float)players.get(i).shot_power;
+        println("y");
+        println(acc.y);
       }
     }
     //if shot -> go in direction
@@ -52,17 +64,21 @@ class Ball {
   }
   
   void checkBoundaries() {
-    if (pos.x <= 0 || pos.x >= width) {
+    if (pos.x <= 0) {
+      pos.x = 0;
       acc.x = -acc.x;
     }
-    if (pos.y <= 0 || pos.y >= height) {
+    if (pos.x >= width) {
+      pos.x = width;
+      acc.x = -acc.x;
+    }
+    if (pos.y <= 0) {
+      pos.y = 0;
       acc.y = -acc.y;
     }
-    if (acc.x < 0) {
-      acc.x = 0;
-    }
-    if (acc.y < 0) {
-      acc.y = 0;
+    if (pos.y >= height) {
+      pos.y = height;
+      acc.y = -acc.y;
     }
   }  
   
