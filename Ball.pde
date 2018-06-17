@@ -1,20 +1,23 @@
 class Ball {
   PVector pos, acc;
+  PImage img;
   int size;
   boolean shot = false;
   ArrayList<Player> players;
   
   
   Ball(ArrayList<Player> players) {
-    size = 10;
+    size = 20;
     pos = new PVector(width/2, height/2);
     acc = new PVector(0, 0);
     this.players = players;
+    img = loadImage("soccerball.png");
   }
   
   void display() {
     fill (255);
     ellipse(pos.x, pos.y, size, size);
+    //image(img, pos.x, pos.y, size * 3, size * 3);
     update();
   }
   

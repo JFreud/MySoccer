@@ -13,17 +13,9 @@
  void setup() {
    size(1200, 700);
    background(0, 125, 0);
-   strokeWeight(10);
-   stroke(255);
-   line(width/2, 0, width/2, height);
-   strokeWeight(1);
-   stroke(0);
    scoreLeft = 0;
    scoreRight = 0;
-   fill(255, 0, 0);
-   text(scoreLeft, width/4, 10);
-   fill(0, 0, 255);
-   text(scoreRight, width*3/4, 10);
+   drawfield();
    time = 0;
    noCursor();
    hasBall = 0;
@@ -37,6 +29,34 @@
    allPlayers.addAll(teamLeft);
    allPlayers.addAll(teamRight);
    ball = new Ball(allPlayers);
+ }
+ 
+ void drawfield() {
+   //score
+   textSize(30);
+   fill(255, 0, 0);
+   text(scoreLeft, width/4, 40);
+   fill(0, 0, 255);
+   text(scoreRight, width*3/4, 40);
+   //ring in middle
+   fill(255);
+   ellipse(width/2, height/2, 200, 200);
+   fill(0, 125, 0);
+   ellipse(width/2, height/2, 180, 180);
+   //line down middle
+   strokeWeight(10);
+   stroke(255);
+   line(width/2, 0, width/2, height);
+   strokeWeight(5);
+   //goalie boxes
+   arc(165, height/2, 150, 150, PI*3/2, PI*5/2);
+   rect(0, height/2 - 200, 165, 400);
+   rect(0, height/2 - 80, 55, 160);
+   arc(width-165, height/2, 150, 150, PI/2, PI*3/2);
+   rect(width - 165, height/2 - 200, 165, 400);
+   rect(width - 55, height/2 - 80, 55, 160);
+   strokeWeight(1);
+   stroke(0);
  }
  
  void draw() {
@@ -72,16 +92,7 @@
  
  void gameState() {
    background(0, 125, 0);
-   strokeWeight(10);
-   stroke(255);
-   line(width/2, 0, width/2, height);
-   strokeWeight(1);
-   stroke(0);
-   fill(255, 0, 0);
-   textSize(40);
-   text(scoreLeft, width/4, 40);
-   fill(0, 0, 255);
-   text(scoreRight, width*3/4, 40);
+   drawfield();
    ball.display();
    for (int i = 0; i < allPlayers.size(); i++) {
      allPlayers.get(i).display();
