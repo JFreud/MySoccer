@@ -7,7 +7,6 @@
  int time;
  int timeStart;
  int duration;
- 
  boolean leftUp, leftDown, leftLeft, leftRight;
  boolean rightUp, rightDown, rightLeft, rightRight;
  boolean rightAction, leftAction;
@@ -25,9 +24,17 @@
    hasBall = 0;
    teamLeft = new ArrayList<Player>();
    teamLeft.add(new Player(0, 80, 80, 80));
+   teamLeft.add(new COM(0, 80, 80, 80, 0));
+   teamLeft.add(new COM(0, 80, 80, 80, 1));
+   teamLeft.add(new COM(0, 80, 80, 80, 2));
+   teamLeft.add(new COM(0, 80, 80, 80, 3));
    //fill team left
    teamRight = new ArrayList<Player>();
    teamRight.add(new Player(1, 80, 80, 80));
+   teamRight.add(new COM(1, 80, 80, 80, 0));
+   teamRight.add(new COM(1, 80, 80, 80, 1));
+   teamRight.add(new COM(1, 80, 80, 80, 2));
+   teamRight.add(new COM(1, 80, 80, 80, 3));
    //fill team right
    allPlayers = new ArrayList<Player>();
    allPlayers.addAll(teamLeft);
@@ -51,6 +58,16 @@
        teamRight.get(i).dir = 270;
      }
  }
+ 
+ void updateCOM() {
+    for (int i = 0; i < allPlayers.size(); i++) {
+      if (allPlayers.get(i).isHuman == false) {
+         allPlayers.get(i).update(ball.pos.x, ball.pos.y);
+      }
+    }
+  }
+ 
+  
  
  void drawfield() {
    //score
@@ -119,6 +136,7 @@
  void gameState() {
    background(0, 125, 0);
    time = duration - (millis() - timeStart)/1000;
+   //updateCOM();
    whoHasBall();
    drawfield();
    ball.display();
@@ -134,8 +152,8 @@
    }
    else if (ball.inGoal() == 0){
      scoreLeft++;
-     fill(0, 0, 255);
-     text("Red Team has scored!", width/2 - 10, 20);
+     fill(100, 100, 255);
+     text("Dark Red Team has scored!", width/2 - 10, 20);
      delay(1000);
      resetPlayerPositions();
    }

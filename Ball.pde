@@ -11,6 +11,15 @@ class Ball {
     acc = new PVector(0, 0);
     this.players = players;
     img = loadImage("soccerball.png");
+    updateCOM();
+  }
+  
+  void updateCOM() {
+    for (int i = 0; i < players.size(); i++) {
+      if (players.get(i).isHuman == false) {
+         players.get(i).update(pos.x, pos.y);
+      }
+    }
   }
   
   void display() {
@@ -23,6 +32,7 @@ class Ball {
   void update() {
     int psize;
     PVector ppos = new PVector(0, 0);
+    updateCOM();
     pos.x += acc.x;
     pos.y += acc.y;
     for (int i = 0; i < players.size(); i++) {

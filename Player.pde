@@ -1,11 +1,13 @@
 class Player {
-  PVector pos;
+  PVector pos, durr;
   float dir;
   int team, size; 
   int speed, power, endurance; //Stats
   boolean gotBall;
   double kickStrength, kickTimer; //Kicking
   double sprintSpeed, sprintTimer, runD; //Sprinting
+  boolean isHuman;
+  Ball ball;
   
   Player(int team, int s, int p, int e) {
     size = 30;
@@ -13,6 +15,7 @@ class Player {
     speed = s;
     power = p;
     endurance = e;
+    isHuman = true;
     gotBall = false;
     kickStrength = 0;
     kickTimer = 0;
@@ -24,6 +27,7 @@ class Player {
       pos = new PVector(width*3/4, height/2);
       dir = 270;
     }
+    //this.ball = ball;
   }
   
   void display() {
@@ -34,11 +38,11 @@ class Player {
       fill (0, 0, 255);
     }
     ellipse(pos.x, pos.y, size, size);
-    update();
+    update(0, 0);
   }
   
-  void update() {
-    move();
+  void update(float ballX, float ballY) {
+     move();
     if (team == 0 && leftAction){
         action();  
     } 
@@ -46,6 +50,22 @@ class Player {
       action();
     }
     checkBoundaries();
+  }
+  
+  void follow() {
+    durr.set(ball.pos.x, ball.pos.y);
+    PVector target = PVector.sub(durr, pos);
+    target.normalize();
+    target = quantize2dVector(target, 8);
+    target.mult(2);
+    pos.add(target);
+  }
+  
+  PVector quantize2dVector(PVector v, int units) {
+    float d = dist(v.x, v.y,0,0);
+    float a = atan2(v.y,v.x);
+    a = round(a*units/TWO_PI) * TWO_PI/units;
+    return new PVector( cos(a)*d, sin(a)*d );
   }
   
   void move() {
