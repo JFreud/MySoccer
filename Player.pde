@@ -1,6 +1,6 @@
 class Player {
   PVector pos;
-  int dir;
+  float dir;
   int team, size; 
   int speed, power; //Stats
   boolean gotBall;
@@ -37,26 +37,26 @@ class Player {
     if (team == 0) {
       if (leftLeft) {
         pos.x -= speed/20;
-        dir = 270;
+        dir = PI*3/2;
         if (leftUp) {
           pos.y -= speed/20;
-          dir = 315;
+          dir = PI*7/4;
         }
         else if (leftDown) {
           pos.y += speed/20;
-          dir = 225;
+          dir = PI*5/4;
         }
       }
       else if (leftRight) {
         pos.x += speed/20;
-        dir = 90;
+        dir = PI/2;
         if (leftUp) {
           pos.y -= speed/20;
-          dir = 45;
+          dir = PI/4;
         }
         else if (leftDown) {
           pos.y += speed/20;
-          dir = 135;
+          dir = PI*3/4;
         }
       }
       else if (leftUp) {
@@ -65,32 +65,33 @@ class Player {
       }
       else if (leftDown) {
         pos.y += speed/20;
-        dir = 180;
+        dir = PI;
       }
     }
+    
     else {
       if (rightLeft) {
         pos.x -= speed/20;
-        dir = 270;
+        dir = PI*3/2;
         if (rightUp) {
           pos.y -= speed/20;
-          dir = 315;
+          dir = PI*7/4;
         }
         else if (rightDown) {
           pos.y += speed/20;
-          dir = 225;
+          dir = PI*5/4;
         }
       }
       else if (rightRight) {
         pos.x += speed/20;
-        dir = 90;
+        dir = PI/2;
         if (rightUp) {
           pos.y -= speed/20;
-          dir = 45;
+          dir = PI/4;
         }
         else if (rightDown) {
           pos.y += speed/20;
-          dir = 135;
+          dir = PI*3/4;
         }
       }
       else if (rightUp) {
@@ -99,7 +100,7 @@ class Player {
       }
       else if (rightDown) {
         pos.y += speed/20;
-        dir = 180;
+        dir = PI;
       }
     }
     println(dir);
