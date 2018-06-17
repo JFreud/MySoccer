@@ -215,7 +215,7 @@ void keyPressed() {
     rightAction = true;
   }
   if (key == CODED) {
-    if (keyCode == CONTROL){
+    if (keyCode == ALT){
       leftAction = true;
     }
   }
@@ -253,7 +253,7 @@ void keyReleased() {
     rightAction = false;
   }
   if (key == CODED) {
-    if (keyCode == CONTROL){
+    if (keyCode == ALT){
       leftAction = false;
     }
   }
