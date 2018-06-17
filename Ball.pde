@@ -8,7 +8,7 @@ class Ball {
   Ball(ArrayList<Player> players) {
     size = 10;
     pos = new PVector(width/2, height/2);
-    acc = new PVector(width/2, height/2);
+    acc = new PVector(0, 0);
     this.players = players;
   }
   
@@ -32,14 +32,19 @@ class Ball {
         pos.y = ppos.y - (cos(players.get(i).dir) * psize/2 * 1.4);
       } 
     }
+    pos.x += acc.x;
+    pos.y += acc.y;
     if (acc.x > 0) {
       acc.x -= 2;
     }
     if (acc.y > 0) {
       acc.y -= 2;
     }
-    
-    
+    for (int i = 0; i < players.size(); i++) {
+      if (players.get(i).gotBall && shot_power) {
+        
+      }
+    }
     //if shot -> go in direction
     //if near player, stick to player (magnetism)
     //if new player near player, take ball

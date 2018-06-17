@@ -4,7 +4,8 @@ class Player {
   int team, size; 
   int speed, power; //Stats
   boolean gotBall;
-  boolean tackling, kicking, down;
+  boolean tackling, kicking, down, shot;
+  double shot_power;
   
   Player(int team, int s, int p) {
     size = 30;
@@ -38,6 +39,18 @@ class Player {
   
   //CONTROLS
   void update() {
+    if (hasBall != team) {
+      tackling = true;
+      kicking = false;
+    }
+    else if (gotBall) {
+      kicking = true;
+      tackling = false;
+    }
+    else {
+      kicking = false;
+      tackling = false;
+    }
     if (team == 0) {
       if (leftLeft) {
         pos.x -= speed/20;
@@ -107,26 +120,22 @@ class Player {
         dir = PI;
       }
     }
-    println(dir);
+    action();
     checkBoundaries();
   }
   
   void action() {
-    if (team == 0){
-      if (hasBall == 0 && gotBall){ //Shoot/Pass        
-        kicking = true;
-      }
-      else if (hasBall == 1){ //Tackle
-        tackling = true;      
-      }
+    if (team == 0 && leftAction) {
+      shot_power += power * 0.0000001;
     }
-    else {
-      if (hasBall == 1 && gotBall){ //Shoot/Pass        
-        kicking = true;
-      }
-      else if (hasBall == 0){ //Tackle
-        tackling = true;
-      }
+    else if (team == 1 && rightAction) {
+      shot_power += power * 0.0000001;
+    }
+    if (team == 0 && !leftAction) {
+      shot_power = 0;
+    }
+    if (team == 1 && !rightAction) {
+      shot_power = 0;
     }
   }
   

@@ -99,6 +99,12 @@ void keyPressed() {
       rightRight = true; 
     }
   }
+  if (key == ',') {
+    rightAction = true;
+  }
+  if (key == 'q') {
+    leftAction = true;
+  }
 }
 
 void keyReleased() {
@@ -128,5 +134,11 @@ void keyReleased() {
     if (keyCode == RIGHT) {
       rightRight = false; 
     }
+  }
+  if (key == ',') {
+    rightAction = false;
+  }
+  if (key == 'q') {
+    leftAction = false;
   }
 }
