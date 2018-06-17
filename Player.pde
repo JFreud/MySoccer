@@ -12,7 +12,7 @@ class Player {
     size = 30;
     this.team = team;
     speed = s;
-    power = s;
+    power = p;
     gotBall = false;
     tackling = false;
     kicking = false;

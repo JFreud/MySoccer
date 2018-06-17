@@ -11,10 +11,19 @@
  boolean rightAction, leftAction;
  
  void setup() {
-   size(1000, 720);
-   background(0);
+   size(1200, 700);
+   background(0, 125, 0);
+   strokeWeight(10);
+   stroke(255);
+   line(width/2, 0, width/2, height);
+   strokeWeight(1);
+   stroke(0);
    scoreLeft = 0;
    scoreRight = 0;
+   fill(255, 0, 0);
+   text(scoreLeft, width/4, 10);
+   fill(0, 0, 255);
+   text(scoreRight, width*3/4, 10);
    time = 0;
    noCursor();
    hasBall = 0;
@@ -63,7 +72,16 @@
  
  void gameState() {
    background(0, 125, 0);
-   fill(255, 0, 255);
+   strokeWeight(10);
+   stroke(255);
+   line(width/2, 0, width/2, height);
+   strokeWeight(1);
+   stroke(0);
+   fill(255, 0, 0);
+   textSize(40);
+   text(scoreLeft, width/4, 40);
+   fill(0, 0, 255);
+   text(scoreRight, width*3/4, 40);
    ball.display();
    for (int i = 0; i < allPlayers.size(); i++) {
      allPlayers.get(i).display();
